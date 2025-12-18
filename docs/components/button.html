@@ -1,0 +1,18 @@
+<h2>Button</h2>
+
+<p>Buttons represent an action. They do not manage state.</p>
+
+<h3>Basic</h3>
+<button class="btn">Button</button>
+
+<h3>Variants</h3>
+<button class="btn primary">Primary</button>
+<button class="btn danger">Danger</button>
+
+<h3>HTMX Example</h3>
+<button class="btn primary"
+        hx-post="/save"
+        hx-target="#status"
+        hx-swap="outerHTML">
+  Save
+</button>

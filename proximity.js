@@ -1,0 +1,4 @@
+/*
+  Proximity UI JavaScript
+  Optional enhancements only.
+*/
