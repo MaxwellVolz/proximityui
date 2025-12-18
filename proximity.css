@@ -1,17 +1,168 @@
 /* =========================================================
    Proximity UI
+   Design Tokens
    ========================================================= */
 
-/* ---- CSS Variables / Tokens ---- */
+:root {
+   /* Base surfaces */
+   --color-bg: #ffffff;
+   --color-fg: #111111;
+   --color-muted: #6b7280;
 
-/* ---- Reset ---- */
+   /* UI surfaces */
+   --color-surface: #f8f9fa;
+   --color-surface-fg: var(--color-fg);
+   --color-border: #e5e7eb;
 
-/* ---- Typography ---- */
+   /* Actions */
+   --color-primary: #2563eb;
+   --color-primary-contrast: #ffffff;
 
-/* ---- Layout Primitives ---- */
+   --color-danger: #dc2626;
+   --color-danger-contrast: #ffffff;
+
+   --color-success: #16a34a;
+   --color-success-contrast: #ffffff;
+
+   --color-warning: #d97706;
+   --color-warning-contrast: #111111;
+
+   /* Typography */
+   --font-sans: system-ui, -apple-system, BlinkMacSystemFont,
+      "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco,
+      Consolas, "Liberation Mono", monospace;
+
+   --font-size-base: 16px;
+   --line-height-base: 1.5;
+
+   --font-weight-normal: 400;
+   --font-weight-medium: 500;
+   --font-weight-bold: 600;
+
+   /* Spacing */
+   --space-xs: 0.25rem;
+   --space-sm: 0.5rem;
+   --space-md: 0.75rem;
+   --space-lg: 1rem;
+   --space-xl: 1.5rem;
+   --space-2xl: 2rem;
+
+   /* Borders */
+   --border-width: 1px;
+   --border-radius-sm: 4px;
+   --border-radius-md: 6px;
+   --border-radius-lg: 10px;
+
+   /* Elevation */
+   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+   --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.08);
+   --shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.12);
+
+   /* Motion */
+   --transition-fast: 120ms ease-out;
+   --transition-base: 180ms ease-out;
+
+   /* Focus */
+   --focus-ring-color: var(--color-primary);
+   --focus-ring-width: 2px;
+   --focus-ring-offset: 2px;
+
+   /* Z-index */
+   --z-base: 0;
+   --z-dropdown: 100;
+   --z-modal: 200;
+   --z-toast: 300;
+}
+
+/* ---- Dark Mode Override ---- */
+
+@media (prefers-color-scheme: dark) {
+   :root {
+      --color-bg: #0f1115;
+      --color-fg: #f3f4f6;
+      --color-muted: #9ca3af;
+
+      --color-surface: #161a20;
+      --color-surface-fg: var(--color-fg);
+      --color-border: #2a2f3a;
+
+      --color-primary: #3b82f6;
+      --color-danger: #ef4444;
+      --color-success: #22c55e;
+      --color-warning: #f59e0b;
+   }
+}
 
 /* ---- Components ---- */
+
 /* Button */
+.btn {
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+
+   font-family: var(--font-sans);
+   font-size: 1rem;
+   font-weight: var(--font-weight-medium);
+   line-height: 1;
+
+   padding: var(--space-sm) var(--space-lg);
+   border-radius: var(--border-radius-md);
+   border: var(--border-width) solid var(--color-border);
+
+   background: var(--color-surface);
+   color: var(--color-fg);
+
+   cursor: pointer;
+   text-decoration: none;
+   user-select: none;
+
+   transition:
+      background-color var(--transition-fast),
+      border-color var(--transition-fast),
+      color var(--transition-fast);
+}
+
+.btn:hover {
+   background: var(--color-bg);
+}
+
+.btn:focus-visible {
+   outline: none;
+   box-shadow:
+      0 0 0 var(--focus-ring-offset) var(--color-bg),
+      0 0 0 calc(var(--focus-ring-offset) + var(--focus-ring-width)) var(--focus-ring-color);
+}
+
+.btn:disabled,
+.btn[aria-disabled="true"] {
+   opacity: 0.6;
+   cursor: not-allowed;
+   pointer-events: none;
+}
+
+.btn.primary {
+   background: var(--color-primary);
+   border-color: var(--color-primary);
+   color: var(--color-primary-contrast);
+}
+
+.btn.primary:hover {
+   background: color-mix(in srgb, var(--color-primary) 90%, black);
+}
+
+.btn.danger {
+   background: var(--color-danger);
+   border-color: var(--color-danger);
+   color: var(--color-danger-contrast);
+}
+
+.btn.danger:hover {
+   background: color-mix(in srgb, var(--color-danger) 90%, black);
+}
+
 /* Form */
 /* Alert */
 /* Card */

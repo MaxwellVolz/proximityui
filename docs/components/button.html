@@ -1,18 +1,51 @@
-<h2>Button</h2>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Button – Proximity UI</title>
+  <!-- Allow HTMX to make cross-origin requests (localhost:8000 → localhost:8001) -->
+  <meta name="htmx-config" content='{"selfRequestsOnly":false}'>
+  <link rel="stylesheet" href="../../proximity.css">
+  <script src="https://unpkg.com/htmx.org@2.0.4"></script>
+</head>
+<body>
 
-<p>Buttons represent an action. They do not manage state.</p>
+<main class="container">
+  <h1>Button</h1>
 
-<h3>Basic</h3>
-<button class="btn">Button</button>
+  <p>
+    Buttons represent an action. They do not manage state.
+  </p>
 
-<h3>Variants</h3>
-<button class="btn primary">Primary</button>
-<button class="btn danger">Danger</button>
+  <h2>Basic</h2>
+  <button class="btn">Button</button>
 
-<h3>HTMX Example</h3>
-<button class="btn primary"
-        hx-post="/save"
-        hx-target="#status"
-        hx-swap="outerHTML">
-  Save
-</button>
+  <h2>Variants</h2>
+  <button class="btn primary">Primary</button>
+  <button class="btn danger">Danger</button>
+
+  <h2>Disabled</h2>
+  <button class="btn" disabled>Disabled</button>
+
+  <h2>Link Button</h2>
+  <a href="#" class="btn">Link</a>
+
+  <h2>HTMX Example</h2>
+
+  <p>
+    This example requires the mock server running on port 8001.
+  </p>
+
+  <button
+    class="btn primary"
+    hx-post="http://localhost:8001/save"
+    hx-target="#status"
+    hx-swap="outerHTML">
+    Save
+  </button>
+
+  <p id="status"></p>
+</main>
+
+</body>
+</html>
