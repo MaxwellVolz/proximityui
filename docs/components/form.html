@@ -44,6 +44,216 @@
   <textarea id="error-textarea" class="textarea error" placeholder="Enter your comments..."></textarea>
   <span class="form-error">This field is required.</span>
 
+  <h2>Select</h2>
+  <label class="form-label" for="basic-select">Country</label>
+  <select id="basic-select" class="select">
+    <option value="">Choose a country</option>
+    <option value="us">United States</option>
+    <option value="ca">Canada</option>
+    <option value="mx">Mexico</option>
+    <option value="uk">United Kingdom</option>
+    <option value="de">Germany</option>
+    <option value="fr">France</option>
+  </select>
+
+  <h2>Select with Help Text</h2>
+  <label class="form-label" for="help-select">Time Zone</label>
+  <select id="help-select" class="select">
+    <option value="">Select your time zone</option>
+    <option value="pst">Pacific Time (PST)</option>
+    <option value="mst">Mountain Time (MST)</option>
+    <option value="cst">Central Time (CST)</option>
+    <option value="est">Eastern Time (EST)</option>
+  </select>
+  <span class="form-help">This will be used to display times in your local timezone.</span>
+
+  <h2>Select with Error</h2>
+  <label class="form-label" for="error-select">Department</label>
+  <select id="error-select" class="select error">
+    <option value="">Select a department</option>
+    <option value="engineering">Engineering</option>
+    <option value="design">Design</option>
+    <option value="product">Product</option>
+    <option value="marketing">Marketing</option>
+  </select>
+  <span class="form-error">Please select a department.</span>
+
+  <h2>Disabled Select</h2>
+  <label class="form-label" for="disabled-select">Plan</label>
+  <select id="disabled-select" class="select" disabled>
+    <option value="free">Free Plan</option>
+    <option value="pro" selected>Pro Plan</option>
+    <option value="enterprise">Enterprise Plan</option>
+  </select>
+
+  <h2>Select Accessibility</h2>
+  <ul>
+    <li>Always pair with a <code>&lt;label&gt;</code> using matching <code>for</code> and <code>id</code> attributes</li>
+    <li>Use meaningful option text, not just codes</li>
+    <li>Provide a default "Choose..." option when selection is required</li>
+    <li>Use <code>.form-help</code> for additional context</li>
+    <li>Use <code>.form-error</code> with <code>.error</code> class to indicate validation errors</li>
+  </ul>
+
+  <h3>When to Use Select</h3>
+  <ul>
+    <li>5-15 options that users need to choose from</li>
+    <li>Options are mutually exclusive (only one can be selected)</li>
+    <li>Space is limited and you need a compact control</li>
+  </ul>
+
+  <h3>When Not to Use Select</h3>
+  <ul>
+    <li>2-4 options: Use radio buttons instead for better visibility</li>
+    <li>More than 15 options: Consider autocomplete or search</li>
+    <li>Multiple selections needed: Use checkboxes or a multi-select pattern</li>
+  </ul>
+
+  <h2>Checkbox</h2>
+  <fieldset style="border: none; padding: 0; margin: 0;">
+    <legend class="form-label">Preferences</legend>
+    <div class="checkbox">
+      <input type="checkbox" id="checkbox-1" name="notifications">
+      <label for="checkbox-1">Send me email notifications</label>
+    </div>
+    <div class="checkbox">
+      <input type="checkbox" id="checkbox-2" name="newsletter" checked>
+      <label for="checkbox-2">Subscribe to newsletter</label>
+    </div>
+    <div class="checkbox">
+      <input type="checkbox" id="checkbox-3" name="updates">
+      <label for="checkbox-3">Send me product updates</label>
+    </div>
+  </fieldset>
+
+  <h2>Checkbox with Help Text</h2>
+  <div class="checkbox">
+    <input type="checkbox" id="checkbox-help" name="terms">
+    <label for="checkbox-help">I agree to the terms and conditions</label>
+  </div>
+  <span class="form-help">By checking this box, you agree to our terms of service and privacy policy.</span>
+
+  <h2>Checkbox with Error</h2>
+  <div class="checkbox error">
+    <input type="checkbox" id="checkbox-error" name="consent">
+    <label for="checkbox-error">I consent to data processing</label>
+  </div>
+  <span class="form-error">You must consent to continue.</span>
+
+  <h2>Disabled Checkbox</h2>
+  <div class="checkbox">
+    <input type="checkbox" id="checkbox-disabled" name="feature" checked disabled>
+    <label for="checkbox-disabled">Premium feature (requires upgrade)</label>
+  </div>
+
+  <h2>Checkbox Accessibility</h2>
+  <ul>
+    <li>Use <code>&lt;fieldset&gt;</code> and <code>&lt;legend&gt;</code> to group related checkboxes</li>
+    <li>Each checkbox must have a unique <code>id</code> and matching <code>for</code> attribute on the label</li>
+    <li>Use clear, descriptive labels that explain what checking the box means</li>
+    <li>Place the label after the checkbox for better clickability</li>
+    <li>Use <code>.form-help</code> for additional context</li>
+    <li>Use <code>.form-error</code> with <code>.error</code> class to indicate validation errors</li>
+  </ul>
+
+  <h3>When to Use Checkbox</h3>
+  <ul>
+    <li>Users can select zero, one, or multiple options from a list</li>
+    <li>Each option is independent (selecting one doesn't affect others)</li>
+    <li>Binary choices (on/off, yes/no, agree/disagree)</li>
+  </ul>
+
+  <h3>When Not to Use Checkbox</h3>
+  <ul>
+    <li>Mutually exclusive options: Use radio buttons instead</li>
+    <li>Immediate action required: Use a toggle switch</li>
+    <li>More than 10 options: Consider a multi-select dropdown</li>
+  </ul>
+
+  <h2>Radio Button</h2>
+  <fieldset style="border: none; padding: 0; margin: 0;">
+    <legend class="form-label">Shipping Method</legend>
+    <div class="radio">
+      <input type="radio" id="radio-1" name="shipping" value="standard" checked>
+      <label for="radio-1">Standard (5-7 business days) - Free</label>
+    </div>
+    <div class="radio">
+      <input type="radio" id="radio-2" name="shipping" value="express">
+      <label for="radio-2">Express (2-3 business days) - $9.99</label>
+    </div>
+    <div class="radio">
+      <input type="radio" id="radio-3" name="shipping" value="overnight">
+      <label for="radio-3">Overnight (next business day) - $24.99</label>
+    </div>
+  </fieldset>
+
+  <h2>Radio Button with Help Text</h2>
+  <fieldset style="border: none; padding: 0; margin: 0;">
+    <legend class="form-label">Account Type</legend>
+    <div class="radio">
+      <input type="radio" id="radio-help-1" name="account-type" value="personal">
+      <label for="radio-help-1">Personal</label>
+    </div>
+    <div class="radio">
+      <input type="radio" id="radio-help-2" name="account-type" value="business">
+      <label for="radio-help-2">Business</label>
+    </div>
+  </fieldset>
+  <span class="form-help">Personal accounts are for individual use. Business accounts include team features.</span>
+
+  <h2>Radio Button with Error</h2>
+  <fieldset style="border: none; padding: 0; margin: 0;">
+    <legend class="form-label">Payment Method</legend>
+    <div class="radio error">
+      <input type="radio" id="radio-error-1" name="payment" value="credit">
+      <label for="radio-error-1">Credit Card</label>
+    </div>
+    <div class="radio error">
+      <input type="radio" id="radio-error-2" name="payment" value="paypal">
+      <label for="radio-error-2">PayPal</label>
+    </div>
+  </fieldset>
+  <span class="form-error">Please select a payment method.</span>
+
+  <h2>Disabled Radio Button</h2>
+  <fieldset style="border: none; padding: 0; margin: 0;">
+    <legend class="form-label">Subscription Plan</legend>
+    <div class="radio">
+      <input type="radio" id="radio-disabled-1" name="plan" value="free" checked>
+      <label for="radio-disabled-1">Free Plan</label>
+    </div>
+    <div class="radio">
+      <input type="radio" id="radio-disabled-2" name="plan" value="premium" disabled>
+      <label for="radio-disabled-2">Premium Plan (Coming Soon)</label>
+    </div>
+  </fieldset>
+
+  <h2>Radio Button Accessibility</h2>
+  <ul>
+    <li>Always use <code>&lt;fieldset&gt;</code> and <code>&lt;legend&gt;</code> to group radio buttons</li>
+    <li>All radio buttons in a group must share the same <code>name</code> attribute</li>
+    <li>Each radio button must have a unique <code>id</code> and matching <code>for</code> attribute on the label</li>
+    <li>Use clear, descriptive labels that make options easy to distinguish</li>
+    <li>Place the label after the radio button for better clickability</li>
+    <li>Pre-select a sensible default option when appropriate</li>
+    <li>Use <code>.form-help</code> for additional context</li>
+    <li>Use <code>.form-error</code> with <code>.error</code> class to indicate validation errors</li>
+  </ul>
+
+  <h3>When to Use Radio Button</h3>
+  <ul>
+    <li>2-5 mutually exclusive options where users must choose exactly one</li>
+    <li>All options should be visible without scrolling</li>
+    <li>Choices are equally important and need equal visual weight</li>
+  </ul>
+
+  <h3>When Not to Use Radio Button</h3>
+  <ul>
+    <li>Only 2 options: Consider a checkbox or toggle instead</li>
+    <li>More than 5 options: Use a select dropdown to save space</li>
+    <li>Multiple selections allowed: Use checkboxes instead</li>
+  </ul>
+
   <h2>HTMX Example</h2>
 
   <p>
@@ -57,10 +267,46 @@
 
     <br><br>
 
+    <label class="form-label" for="htmx-category">Category</label>
+    <select id="htmx-category" name="category" class="select" required>
+      <option value="">Choose a category</option>
+      <option value="feedback">Feedback</option>
+      <option value="question">Question</option>
+      <option value="bug">Bug Report</option>
+      <option value="feature">Feature Request</option>
+    </select>
+
+    <br><br>
+
+    <fieldset style="border: none; padding: 0; margin: 0;">
+      <legend class="form-label">Priority</legend>
+      <div class="radio">
+        <input type="radio" id="htmx-priority-low" name="priority" value="low" checked>
+        <label for="htmx-priority-low">Low</label>
+      </div>
+      <div class="radio">
+        <input type="radio" id="htmx-priority-medium" name="priority" value="medium">
+        <label for="htmx-priority-medium">Medium</label>
+      </div>
+      <div class="radio">
+        <input type="radio" id="htmx-priority-high" name="priority" value="high">
+        <label for="htmx-priority-high">High</label>
+      </div>
+    </fieldset>
+
+    <br><br>
+
     <label class="form-label" for="htmx-message">Message</label>
     <textarea id="htmx-message" name="message" class="textarea" placeholder="Your message..." required></textarea>
 
     <br><br>
+
+    <div class="checkbox">
+      <input type="checkbox" id="htmx-newsletter" name="newsletter" value="yes">
+      <label for="htmx-newsletter">Subscribe to newsletter for updates</label>
+    </div>
+
+    <br>
 
     <button type="submit" class="btn primary">Submit</button>
   </form>

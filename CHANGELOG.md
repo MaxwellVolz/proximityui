@@ -5,7 +5,7 @@
 ### Added
 - Layout Primitives section with `.container` class (max-width: 72rem, centered, responsive padding)
 - Base body styles for proper color inheritance and typography defaults
-- Form components (input, textarea, labels, help text, error states)
+- Form components (input, textarea, labels, help text, error states, select, radio, checkbox)
 - Form component documentation page
 - HTMX button example with proper CORS config
 
