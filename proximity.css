@@ -406,6 +406,60 @@ body {
 }
 
 /* Alert */
+.alert {
+   display: flex;
+   gap: var(--space-md);
+   padding: var(--space-md) var(--space-lg);
+   border-radius: var(--border-radius-md);
+   border: var(--border-width) solid;
+   font-size: 1rem;
+   line-height: var(--line-height-base);
+   margin-bottom: var(--space-lg);
+}
+
+.alert.info {
+   background: color-mix(in srgb, var(--color-primary) 10%, var(--color-bg));
+   border-color: color-mix(in srgb, var(--color-primary) 30%, var(--color-bg));
+   color: color-mix(in srgb, var(--color-primary) 90%, black);
+}
+
+.alert.success {
+   background: color-mix(in srgb, var(--color-success) 10%, var(--color-bg));
+   border-color: color-mix(in srgb, var(--color-success) 30%, var(--color-bg));
+   color: color-mix(in srgb, var(--color-success) 90%, black);
+}
+
+.alert.warning {
+   background: color-mix(in srgb, var(--color-warning) 10%, var(--color-bg));
+   border-color: color-mix(in srgb, var(--color-warning) 30%, var(--color-bg));
+   color: color-mix(in srgb, var(--color-warning) 90%, black);
+}
+
+.alert.danger {
+   background: color-mix(in srgb, var(--color-danger) 10%, var(--color-bg));
+   border-color: color-mix(in srgb, var(--color-danger) 30%, var(--color-bg));
+   color: color-mix(in srgb, var(--color-danger) 90%, black);
+}
+
+.alert-title {
+   font-weight: var(--font-weight-bold);
+   margin: 0 0 var(--space-xs) 0;
+}
+
+.alert p {
+   margin: 0;
+}
+
+.alert a {
+   color: inherit;
+   text-decoration: underline;
+   font-weight: var(--font-weight-medium);
+}
+
+.alert a:hover {
+   opacity: 0.8;
+}
+
 /* Card */
 /* Modal */
 /* Tabs */

@@ -8,6 +8,22 @@ class Handler(BaseHTTPRequestHandler):
         self.send_header("Access-Control-Allow-Headers", "*")
         self.end_headers()
 
+    def do_GET(self):
+        if self.path == "/alert":
+            self.send_response(200)
+            self.send_header("Content-Type", "text/html")
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            alert_html = '''<div class="alert success">
+    <div>
+        <p><strong>Success!</strong> The operation completed successfully.</p>
+    </div>
+</div>'''
+            self.wfile.write(alert_html.encode())
+        else:
+            self.send_response(404)
+            self.end_headers()
+
     def do_POST(self):
         if self.path == "/save":
             self.send_response(200)

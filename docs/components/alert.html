@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Alert – Proximity UI</title>
+  <meta name="htmx-config" content='{"selfRequestsOnly":false}'>
+  <link rel="stylesheet" href="../../proximity.css">
+  <script src="https://unpkg.com/htmx.org@2.0.4"></script>
+</head>
+<body>
+
+<main class="container">
+  <h1>Alert</h1>
+
+  <p>
+    Display important messages and notifications to users.
+  </p>
+
+  <h2>Info</h2>
+  <div class="alert info">
+    <div>
+      <p><strong>New feature available:</strong> You can now export your data in multiple formats.</p>
+    </div>
+  </div>
+
+  <h2>Success</h2>
+  <div class="alert success">
+    <div>
+      <p><strong>Success!</strong> Your changes have been saved successfully.</p>
+    </div>
+  </div>
+
+  <h2>Warning</h2>
+  <div class="alert warning">
+    <div>
+      <p><strong>Warning:</strong> Your trial period expires in 3 days. Please upgrade to continue using premium features.</p>
+    </div>
+  </div>
+
+  <h2>Danger</h2>
+  <div class="alert danger">
+    <div>
+      <p><strong>Error:</strong> Failed to process your request. Please try again later.</p>
+    </div>
+  </div>
+
+  <h2>With Title</h2>
+  <div class="alert info">
+    <div>
+      <h3 class="alert-title">System Maintenance</h3>
+      <p>Scheduled maintenance will occur on Sunday, March 15th from 2:00 AM to 4:00 AM EST. During this time, some features may be unavailable.</p>
+    </div>
+  </div>
+
+  <h2>With Link</h2>
+  <div class="alert warning">
+    <div>
+      <p><strong>Action required:</strong> Your password will expire in 7 days. <a href="#">Change password now</a> to maintain account security.</p>
+    </div>
+  </div>
+
+  <h2>Multi-line Content</h2>
+  <div class="alert success">
+    <div>
+      <h3 class="alert-title">Account Verified</h3>
+      <p>Your email address has been successfully verified. You now have access to:</p>
+      <ul style="margin: var(--space-sm) 0 0 var(--space-lg); padding: 0;">
+        <li>Premium templates</li>
+        <li>Priority support</li>
+        <li>Advanced analytics</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>HTMX Example</h2>
+
+  <p>
+    This example requires the mock server running on port 8001.
+  </p>
+
+  <button
+    class="btn primary"
+    hx-get="http://localhost:8001/alert"
+    hx-target="#alert-container"
+    hx-swap="innerHTML">
+    Trigger Alert
+  </button>
+
+  <div id="alert-container" style="margin-top: var(--space-lg);"></div>
+
+  <h2>Accessibility</h2>
+  <ul>
+    <li>Use appropriate semantic HTML inside alerts (headings, paragraphs, lists)</li>
+    <li>Consider using ARIA role="alert" for time-sensitive messages that should interrupt the user</li>
+    <li>Use <code>role="status"</code> for less urgent informational messages</li>
+    <li>Ensure sufficient color contrast between text and background</li>
+    <li>Don't rely solely on color to convey meaning - use text labels like "Success:", "Warning:", etc.</li>
+    <li>If dismissible, ensure the close button is keyboard accessible</li>
+  </ul>
+
+  <h2>When to Use</h2>
+  <ul>
+    <li>Display system messages or feedback after user actions</li>
+    <li>Show important warnings that require user attention</li>
+    <li>Communicate errors that occurred during form submission or operations</li>
+    <li>Provide context or additional information about page state</li>
+  </ul>
+
+  <h2>When Not to Use</h2>
+  <ul>
+    <li>Time-sensitive notifications: Use toast/snackbar instead</li>
+    <li>Inline validation errors: Use form error messages instead</li>
+    <li>Permanent page content: Use regular content blocks</li>
+    <li>User-dismissible temporary messages: Consider toast patterns</li>
+  </ul>
+</main>
+
+</body>
+</html>
