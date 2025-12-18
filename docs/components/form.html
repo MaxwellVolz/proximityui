@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Form – Proximity UI</title>
+  <!-- Allow HTMX to make cross-origin requests (localhost:8000 → localhost:8001) -->
+  <meta name="htmx-config" content='{"selfRequestsOnly":false}'>
+  <link rel="stylesheet" href="../../proximity.css">
+  <script src="https://unpkg.com/htmx.org@2.0.4"></script>
+</head>
+<body>
+
+<main class="container">
+  <h1>Form</h1>
+
+  <p>
+    Form controls for text input and user data collection.
+  </p>
+
+  <h2>Input</h2>
+  <label class="form-label" for="basic-input">Email</label>
+  <input type="email" id="basic-input" class="input" placeholder="you@example.com">
+
+  <h2>Input with Help Text</h2>
+  <label class="form-label" for="help-input">Username</label>
+  <input type="text" id="help-input" class="input" placeholder="johndoe">
+  <span class="form-help">Choose a unique username for your account.</span>
+
+  <h2>Input with Error</h2>
+  <label class="form-label" for="error-input">Password</label>
+  <input type="password" id="error-input" class="input error" placeholder="••••••••">
+  <span class="form-error">Password must be at least 8 characters.</span>
+
+  <h2>Disabled Input</h2>
+  <label class="form-label" for="disabled-input">Account ID</label>
+  <input type="text" id="disabled-input" class="input" value="12345" disabled>
+
+  <h2>Textarea</h2>
+  <label class="form-label" for="basic-textarea">Description</label>
+  <textarea id="basic-textarea" class="textarea" placeholder="Enter a description..."></textarea>
+
+  <h2>Textarea with Error</h2>
+  <label class="form-label" for="error-textarea">Comments</label>
+  <textarea id="error-textarea" class="textarea error" placeholder="Enter your comments..."></textarea>
+  <span class="form-error">This field is required.</span>
+
+  <h2>HTMX Example</h2>
+
+  <p>
+    This example requires the mock server running on port 8001.
+  </p>
+
+  <form hx-post="http://localhost:8001/save" hx-target="#status" hx-swap="innerHTML">
+    <label class="form-label" for="htmx-name">Name</label>
+    <input type="text" id="htmx-name" name="name" class="input" placeholder="Your name" required>
+    <span class="form-help">We'll use this to personalize your experience.</span>
+
+    <br><br>
+
+    <label class="form-label" for="htmx-message">Message</label>
+    <textarea id="htmx-message" name="message" class="textarea" placeholder="Your message..." required></textarea>
+
+    <br><br>
+
+    <button type="submit" class="btn primary">Submit</button>
+  </form>
+
+  <p id="status"></p>
+</main>
+
+</body>
+</html>

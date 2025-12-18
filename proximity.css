@@ -7,7 +7,7 @@
    /* Base surfaces */
    --color-bg: #ffffff;
    --color-fg: #111111;
-   --color-muted: #6b7280;
+   --color-muted: #57606a;
 
    /* UI surfaces */
    --color-surface: #f8f9fa;
@@ -76,13 +76,24 @@
    --z-toast: 300;
 }
 
+/* ---- Base Styles ---- */
+
+body {
+   background: var(--color-bg);
+   color: var(--color-fg);
+   font-family: var(--font-sans);
+   font-size: var(--font-size-base);
+   line-height: var(--line-height-base);
+   margin: 0;
+}
+
 /* ---- Dark Mode Override ---- */
 
 @media (prefers-color-scheme: dark) {
    :root {
       --color-bg: #0f1115;
-      --color-fg: #f3f4f6;
-      --color-muted: #9ca3af;
+      --color-fg: #ffffff;
+      --color-muted: #adbac7;
 
       --color-surface: #161a20;
       --color-surface-fg: var(--color-fg);
@@ -94,6 +105,19 @@
       --color-warning: #f59e0b;
    }
 }
+
+
+/* ---- Layout Primitives ---- */
+
+.container {
+   max-width: 72rem;
+   /* ~1152px, readable but generous */
+   margin-left: auto;
+   margin-right: auto;
+   padding-left: var(--space-lg);
+   padding-right: var(--space-lg);
+}
+
 
 /* ---- Components ---- */
 
@@ -164,6 +188,92 @@
 }
 
 /* Form */
+.input,
+.textarea {
+   display: block;
+   width: 100%;
+   box-sizing: border-box;
+
+   font-family: var(--font-sans);
+   font-size: 1rem;
+   line-height: var(--line-height-base);
+
+   padding: var(--space-sm) var(--space-md);
+   border-radius: var(--border-radius-md);
+   border: var(--border-width) solid var(--color-border);
+
+   background: var(--color-bg);
+   color: var(--color-fg);
+
+   transition:
+      border-color var(--transition-fast),
+      box-shadow var(--transition-fast);
+}
+
+.input::placeholder,
+.textarea::placeholder {
+   color: var(--color-muted);
+}
+
+.input:hover,
+.textarea:hover {
+   border-color: color-mix(in srgb, var(--color-border) 70%, var(--color-fg));
+}
+
+.input:focus,
+.textarea:focus {
+   outline: none;
+   border-color: var(--color-primary);
+   box-shadow: 0 0 0 var(--focus-ring-width) var(--focus-ring-color);
+}
+
+.input:disabled,
+.textarea:disabled,
+.input[aria-disabled="true"],
+.textarea[aria-disabled="true"] {
+   cursor: not-allowed;
+   background: var(--color-surface);
+   color: var(--color-muted);
+}
+
+.input.error,
+.textarea.error {
+   border-color: var(--color-danger);
+}
+
+.input.error:focus,
+.textarea.error:focus {
+   border-color: var(--color-danger);
+   --focus-ring-color: var(--color-danger);
+}
+
+.textarea {
+   resize: vertical;
+   min-height: 6rem;
+}
+
+.form-label {
+   display: block;
+   font-size: 1rem;
+   font-weight: var(--font-weight-bold);
+   margin-bottom: var(--space-sm);
+   color: var(--color-fg);
+}
+
+.form-help {
+   display: block;
+   font-size: 0.875rem;
+   margin-top: var(--space-xs);
+   color: var(--color-muted);
+}
+
+.form-error {
+   display: block;
+   font-size: 0.875rem;
+   margin-top: var(--space-xs);
+   color: var(--color-danger);
+}
+
 /* Alert */
 /* Card */
 /* Modal */

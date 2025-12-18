@@ -14,7 +14,8 @@ class Handler(BaseHTTPRequestHandler):
             self.send_header("Content-Type", "text/html")
             self.send_header("Access-Control-Allow-Origin", "*")
             self.end_headers()
-            self.wfile.write(b"<p id='status'>Saved</p>")
+            # Works for both button and form examples (innerHTML swap)
+            self.wfile.write(b"Saved successfully!")
         else:
             self.send_response(404)
             self.end_headers()
