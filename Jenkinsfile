@@ -21,7 +21,7 @@ pipeline {
         stage('Deploy to Nginx') {
             steps {
                 // Deploy the entire repository (includes proximity.css, proximity.js, docs/, examples/)
-                sh 'sudo /usr/local/bin/deploy_blog.sh proximityui .'
+                sh 'sudo /usr/local/bin/deploy_blog.sh proximityui docs'
             }
         }
 
