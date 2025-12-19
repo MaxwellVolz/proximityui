@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Tabs – Proximity UI</title>
+  <meta name="htmx-config" content='{"selfRequestsOnly":false}'>
+  <link rel="stylesheet" href="../../proximity.css">
+  <script src="../../proximity.js"></script>
+  <script src="https://unpkg.com/htmx.org@2.0.4"></script>
+</head>
+<body>
+
+<main class="container">
+  <h1>Tabs</h1>
+
+  <p>
+    Organize related content into separate views within the same context, allowing users to switch between them without leaving the page.
+  </p>
+
+  <p>
+    <strong>Note:</strong> Tabs work without JavaScript using anchor links and the <code>:target</code> pseudo-class. proximity.js progressively enhances with keyboard navigation and ARIA support.
+  </p>
+
+  <h2>Basic</h2>
+
+  <div class="tabs">
+    <div class="tab-list" role="tablist">
+      <a href="#tab1-basic" class="tab" id="tab1-basic-trigger">Overview</a>
+      <a href="#tab2-basic" class="tab" id="tab2-basic-trigger">Features</a>
+      <a href="#tab3-basic" class="tab" id="tab3-basic-trigger">Pricing</a>
+    </div>
+    <div id="tab1-basic" class="tab-panel">
+      <h3>Overview</h3>
+      <p>This is the overview tab. It provides a high-level summary of the product and its main benefits.</p>
+      <p>Tabs are perfect for organizing related content that doesn't need to be visible simultaneously.</p>
+    </div>
+    <div id="tab2-basic" class="tab-panel" hidden>
+      <h3>Features</h3>
+      <p>Our product includes these powerful features:</p>
+      <ul>
+        <li>Real-time collaboration</li>
+        <li>Advanced analytics dashboard</li>
+        <li>Automated workflows</li>
+        <li>Enterprise-grade security</li>
+      </ul>
+    </div>
+    <div id="tab3-basic" class="tab-panel" hidden>
+      <h3>Pricing</h3>
+      <p>Choose the plan that works best for you:</p>
+      <ul>
+        <li><strong>Starter:</strong> $9/month - Perfect for individuals</li>
+        <li><strong>Team:</strong> $29/month - For small teams up to 10 people</li>
+        <li><strong>Enterprise:</strong> Custom pricing - Unlimited scale</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>Underline Style (Default)</h2>
+
+  <p>The default tabs use a minimal underline style with a bottom border on the active tab.</p>
+
+  <div class="tabs">
+    <div class="tab-list" role="tablist">
+      <a href="#design-tab" class="tab">Design</a>
+      <a href="#develop-tab" class="tab">Develop</a>
+      <a href="#deploy-tab" class="tab">Deploy</a>
+    </div>
+    <div id="design-tab" class="tab-panel">
+      <h3>Design Phase</h3>
+      <p>Start by creating mockups and prototypes. Focus on user experience and visual hierarchy.</p>
+    </div>
+    <div id="develop-tab" class="tab-panel" hidden>
+      <h3>Development Phase</h3>
+      <p>Build your application using modern frameworks and best practices. Write clean, maintainable code.</p>
+    </div>
+    <div id="deploy-tab" class="tab-panel" hidden>
+      <h3>Deployment Phase</h3>
+      <p>Deploy to production with confidence. Use CI/CD pipelines and monitoring tools.</p>
+    </div>
+  </div>
+
+  <h2>Contained Variant</h2>
+
+  <p>Use the <code>.contained</code> modifier class for a boxed appearance with background highlighting.</p>
+
+  <div class="tabs">
+    <div class="tab-list contained" role="tablist">
+      <a href="#account-tab" class="tab">Account</a>
+      <a href="#security-tab" class="tab">Security</a>
+      <a href="#notifications-tab" class="tab">Notifications</a>
+    </div>
+    <div id="account-tab" class="tab-panel">
+      <h3>Account Settings</h3>
+      <p>Manage your profile information, email preferences, and account details.</p>
+      <div style="margin-top: var(--space-lg);">
+        <label class="form-label" for="display-name">Display Name</label>
+        <input type="text" id="display-name" class="input" placeholder="Enter your name">
+      </div>
+    </div>
+    <div id="security-tab" class="tab-panel" hidden>
+      <h3>Security Settings</h3>
+      <p>Update your password and manage two-factor authentication.</p>
+      <div class="checkbox" style="margin-top: var(--space-lg);">
+        <input type="checkbox" id="2fa">
+        <label for="2fa">Enable two-factor authentication</label>
+      </div>
+    </div>
+    <div id="notifications-tab" class="tab-panel" hidden>
+      <h3>Notification Preferences</h3>
+      <p>Choose how you want to be notified about updates and activities.</p>
+      <div class="checkbox" style="margin-top: var(--space-lg);">
+        <input type="checkbox" id="email-notif" checked>
+        <label for="email-notif">Email notifications</label>
+      </div>
+    </div>
+  </div>
+
+  <h2>Disabled Tab</h2>
+
+  <p>Use the <code>disabled</code> attribute to prevent interaction with specific tabs.</p>
+
+  <div class="tabs">
+    <div class="tab-list" role="tablist">
+      <a href="#available-tab" class="tab">Available</a>
+      <a href="#coming-soon-tab" class="tab" disabled aria-disabled="true">Coming Soon</a>
+      <a href="#active-tab" class="tab">Active</a>
+    </div>
+    <div id="available-tab" class="tab-panel">
+      <p>This tab is available and fully functional.</p>
+    </div>
+    <div id="coming-soon-tab" class="tab-panel" hidden>
+      <p>This feature is coming soon and the tab is currently disabled.</p>
+    </div>
+    <div id="active-tab" class="tab-panel" hidden>
+      <p>This tab is also available and can be activated.</p>
+    </div>
+  </div>
+
+  <h2>HTMX Lazy Loading</h2>
+
+  <p>Tabs can lazy-load content from the server using HTMX. Content is loaded only when the tab is clicked for the first time.</p>
+
+  <div class="tabs">
+    <div class="tab-list" role="tablist">
+      <a href="#static-content" class="tab">Static Content</a>
+      <a
+        href="#dynamic-content"
+        class="tab"
+        hx-get="http://localhost:8001/tab-content"
+        hx-target="#dynamic-content"
+        hx-swap="innerHTML"
+        hx-trigger="click once">
+        Dynamic Content
+      </a>
+      <a href="#another-static" class="tab">More Static</a>
+    </div>
+    <div id="static-content" class="tab-panel">
+      <h3>Pre-rendered Content</h3>
+      <p>This content is already in the HTML and doesn't require a server request.</p>
+    </div>
+    <div id="dynamic-content" class="tab-panel" hidden>
+      <p>Loading...</p>
+    </div>
+    <div id="another-static" class="tab-panel" hidden>
+      <h3>Another Static Tab</h3>
+      <p>This is also pre-rendered content.</p>
+    </div>
+  </div>
+
+  <p style="margin-top: var(--space-lg);">
+    <strong>Note:</strong> The HTMX example requires the mock server to be running. Start it with: <code>python3 examples/htmx/server.py</code>
+  </p>
+
+  <h2>HTML Structure</h2>
+
+  <p>The basic HTML structure for tabs:</p>
+
+  <pre style="background: var(--color-surface); padding: var(--space-lg); border-radius: var(--border-radius-md); overflow-x: auto;"><code>&lt;div class="tabs"&gt;
+  &lt;div class="tab-list" role="tablist"&gt;
+    &lt;a href="#panel-1" class="tab"&gt;Tab 1&lt;/a&gt;
+    &lt;a href="#panel-2" class="tab"&gt;Tab 2&lt;/a&gt;
+    &lt;a href="#panel-3" class="tab"&gt;Tab 3&lt;/a&gt;
+  &lt;/div&gt;
+  &lt;div id="panel-1" class="tab-panel"&gt;
+    &lt;!-- Panel 1 content (visible by default) --&gt;
+  &lt;/div&gt;
+  &lt;div id="panel-2" class="tab-panel" hidden&gt;
+    &lt;!-- Panel 2 content --&gt;
+  &lt;/div&gt;
+  &lt;div id="panel-3" class="tab-panel" hidden&gt;
+    &lt;!-- Panel 3 content --&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+  <h2>Keyboard Navigation</h2>
+
+  <p>When JavaScript is enabled, tabs support full keyboard navigation:</p>
+
+  <table style="width: 100%; border-collapse: collapse; margin-top: var(--space-md);">
+    <thead>
+      <tr style="background: var(--color-surface);">
+        <th style="padding: var(--space-sm); text-align: left; border: var(--border-width) solid var(--color-border);">Key</th>
+        <th style="padding: var(--space-sm); text-align: left; border: var(--border-width) solid var(--color-border);">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="padding: var(--space-sm); border: var(--border-width) solid var(--color-border);"><kbd>Tab</kbd></td>
+        <td style="padding: var(--space-sm); border: var(--border-width) solid var(--color-border);">Moves focus into or out of the tab list</td>
+      </tr>
+      <tr>
+        <td style="padding: var(--space-sm); border: var(--border-width) solid var(--color-border);"><kbd>→</kbd> Arrow Right</td>
+        <td style="padding: var(--space-sm); border: var(--border-width) solid var(--color-border);">Moves focus to next tab, wraps to first</td>
+      </tr>
+      <tr>
+        <td style="padding: var(--space-sm); border: var(--border-width) solid var(--color-border);"><kbd>←</kbd> Arrow Left</td>
+        <td style="padding: var(--space-sm); border: var(--border-width) solid var(--color-border);">Moves focus to previous tab, wraps to last</td>
+      </tr>
+      <tr>
+        <td style="padding: var(--space-sm); border: var(--border-width) solid var(--color-border);"><kbd>Home</kbd></td>
+        <td style="padding: var(--space-sm); border: var(--border-width) solid var(--color-border);">Moves focus to first tab</td>
+      </tr>
+      <tr>
+        <td style="padding: var(--space-sm); border: var(--border-width) solid var(--color-border);"><kbd>End</kbd></td>
+        <td style="padding: var(--space-sm); border: var(--border-width) solid var(--color-border);">Moves focus to last tab</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p style="margin-top: var(--space-md);"><strong>Note:</strong> Arrow keys automatically activate the focused tab (automatic activation pattern).</p>
+
+  <h2>Accessibility</h2>
+
+  <ul>
+    <li><strong>ARIA Roles:</strong> The component uses <code>role="tablist"</code>, <code>role="tab"</code>, and <code>role="tabpanel"</code> for proper semantics.</li>
+    <li><strong>ARIA Attributes:</strong> JavaScript manages <code>aria-selected</code>, <code>aria-controls</code>, and <code>aria-labelledby</code> attributes.</li>
+    <li><strong>Focus Management:</strong> Only the active tab has <code>tabindex="0"</code>, inactive tabs have <code>tabindex="-1"</code>.</li>
+    <li><strong>Keyboard Support:</strong> Full keyboard navigation with arrow keys, Home, and End keys.</li>
+    <li><strong>Progressive Enhancement:</strong> Works without JavaScript using anchor links and the <code>:target</code> pseudo-class.</li>
+    <li><strong>Focus Indicators:</strong> Visible focus rings appear when navigating with keyboard (<code>:focus-visible</code>).</li>
+  </ul>
+
+  <h2>When to Use</h2>
+
+  <ul>
+    <li>Organizing related content that doesn't need to be visible simultaneously</li>
+    <li>Settings or configuration interfaces with multiple categories</li>
+    <li>Product details with different aspects (overview, specs, reviews)</li>
+    <li>Single-page applications with distinct views</li>
+    <li>Dashboard interfaces with different data visualizations</li>
+    <li>When screen space is limited and you need to reduce scrolling</li>
+  </ul>
+
+  <h2>When Not to Use</h2>
+
+  <ul>
+    <li><strong>Sequential processes:</strong> Use a stepper or wizard component instead</li>
+    <li><strong>Comparison tasks:</strong> When users need to compare content side-by-side</li>
+    <li><strong>Navigation between pages:</strong> Use a navigation menu instead</li>
+    <li><strong>Single piece of content:</strong> Don't use tabs for just one or two items</li>
+    <li><strong>Collapsible content:</strong> Use accordion or <code>&lt;details&gt;/&lt;summary&gt;</code> if all content should be accessible at once</li>
+    <li><strong>Critical content:</strong> Important information should be immediately visible, not hidden in tabs</li>
+  </ul>
+
+  <p style="margin-top: var(--space-2xl); padding-top: var(--space-2xl); border-top: var(--border-width) solid var(--color-border);">
+    <a href="../index.html">← Back to Components</a>
+  </p>
+
+</main>
+
+</body>
+</html>

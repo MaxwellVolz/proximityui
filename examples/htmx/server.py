@@ -20,6 +20,60 @@ class Handler(BaseHTTPRequestHandler):
     </div>
 </div>'''
             self.wfile.write(alert_html.encode())
+        elif self.path == "/card":
+            self.send_response(200)
+            self.send_header("Content-Type", "text/html")
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            card_html = '''<div class="card elevated">
+    <div class="card-header">
+        <h3 class="card-title">Dynamic Content</h3>
+    </div>
+    <div class="card-body">
+        <p>This card was loaded dynamically via HTMX from the mock server.</p>
+        <p>You can use this pattern to load card content on-demand, reducing initial page load time.</p>
+    </div>
+    <div class="card-footer">
+        <button class="btn primary">Take Action</button>
+        <button class="btn">Dismiss</button>
+    </div>
+</div>'''
+            self.wfile.write(card_html.encode())
+        elif self.path == "/modal":
+            self.send_response(200)
+            self.send_header("Content-Type", "text/html")
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            modal_html = '''<div class="modal" id="modal-htmx" open>
+    <div class="modal-backdrop"></div>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title">Dynamically Loaded Modal</h2>
+            <button class="modal-close" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <p>This modal was loaded dynamically via HTMX from the mock server.</p>
+            <p>The proximity.js script automatically initializes it with keyboard handling, focus trapping, and click-outside detection.</p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn primary">Confirm</button>
+            <button class="btn" data-modal-close>Cancel</button>
+        </div>
+    </div>
+</div>'''
+            self.wfile.write(modal_html.encode())
+        elif self.path == "/tab-content":
+            self.send_response(200)
+            self.send_header("Content-Type", "text/html")
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            content = '''<div>
+    <h3>Dynamically Loaded Content</h3>
+    <p>This content was loaded via HTMX when you clicked the tab.</p>
+    <p>The JavaScript handles showing and hiding the panel, while HTMX fetches the content on the first click.</p>
+    <p>This pattern is useful for lazy-loading tab content that might be expensive to render upfront.</p>
+</div>'''
+            self.wfile.write(content.encode())
         else:
             self.send_response(404)
             self.end_headers()

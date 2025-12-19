@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Card – Proximity UI</title>
+  <meta name="htmx-config" content='{"selfRequestsOnly":false}'>
+  <link rel="stylesheet" href="../../proximity.css">
+  <script src="https://unpkg.com/htmx.org@2.0.4"></script>
+  <style>
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--space-lg);
+      margin-bottom: var(--space-2xl);
+    }
+  </style>
+</head>
+<body>
+
+<main class="container">
+  <h1>Card</h1>
+
+  <p>
+    Group related content and actions in a flexible container.
+  </p>
+
+  <h2>Basic</h2>
+  <div class="card" style="max-width: 400px;">
+    <div class="card-body">
+      <p>This is a basic card with just a body. Use it for simple content grouping.</p>
+    </div>
+  </div>
+
+  <h2>With Header</h2>
+  <div class="card" style="max-width: 400px;">
+    <div class="card-header">
+      <h3 class="card-title">Card Title</h3>
+    </div>
+    <div class="card-body">
+      <p>Cards with headers help organize content and provide clear visual hierarchy.</p>
+    </div>
+  </div>
+
+  <h2>With Footer</h2>
+  <div class="card" style="max-width: 400px;">
+    <div class="card-header">
+      <h3 class="card-title">User Profile</h3>
+    </div>
+    <div class="card-body">
+      <p>Review and update your account information.</p>
+    </div>
+    <div class="card-footer">
+      <button class="btn primary">Save Changes</button>
+      <button class="btn">Cancel</button>
+    </div>
+  </div>
+
+  <h2>Elevated</h2>
+  <div class="card elevated" style="max-width: 400px;">
+    <div class="card-header">
+      <h3 class="card-title">Featured Content</h3>
+    </div>
+    <div class="card-body">
+      <p>Use the <code>elevated</code> variant to add a shadow and make cards stand out from the page.</p>
+    </div>
+  </div>
+
+  <h2>Card Grid</h2>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Analytics</h3>
+      </div>
+      <div class="card-body">
+        <p>Track your performance metrics and gain insights into user behavior.</p>
+      </div>
+      <div class="card-footer">
+        <button class="btn">View Details</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Reports</h3>
+      </div>
+      <div class="card-body">
+        <p>Generate comprehensive reports with customizable date ranges and filters.</p>
+      </div>
+      <div class="card-footer">
+        <button class="btn">Create Report</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Settings</h3>
+      </div>
+      <div class="card-body">
+        <p>Configure your preferences and manage account settings.</p>
+      </div>
+      <div class="card-footer">
+        <button class="btn">Open Settings</button>
+      </div>
+    </div>
+  </div>
+
+  <h2>Rich Content</h2>
+  <div class="card elevated" style="max-width: 500px;">
+    <div class="card-header">
+      <h3 class="card-title">Product Launch</h3>
+    </div>
+    <div class="card-body">
+      <p><strong>New features available:</strong></p>
+      <ul style="margin: var(--space-sm) 0; padding-left: var(--space-xl);">
+        <li>Real-time collaboration</li>
+        <li>Advanced analytics dashboard</li>
+        <li>API integrations</li>
+        <li>Custom workflows</li>
+      </ul>
+      <p>Learn more about these exciting updates in our <a href="#">release notes</a>.</p>
+    </div>
+    <div class="card-footer">
+      <button class="btn primary">Get Started</button>
+      <button class="btn">Learn More</button>
+    </div>
+  </div>
+
+  <h2>HTMX Example</h2>
+
+  <p>
+    This example requires the mock server running on port 8001.
+  </p>
+
+  <button
+    class="btn primary"
+    hx-get="http://localhost:8001/card"
+    hx-target="#card-container"
+    hx-swap="innerHTML">
+    Load Card Content
+  </button>
+
+  <div id="card-container" style="margin-top: var(--space-lg); max-width: 500px;"></div>
+
+  <h2>Accessibility</h2>
+  <ul>
+    <li>Use semantic HTML elements inside cards (<code>&lt;article&gt;</code>, <code>&lt;section&gt;</code>, etc.)</li>
+    <li>Ensure headings follow a logical hierarchy (don't skip levels)</li>
+    <li>If the card is clickable, wrap it in a proper link or button element</li>
+    <li>Ensure sufficient color contrast for all text content</li>
+    <li>Make interactive elements keyboard accessible with proper focus states</li>
+    <li>Consider using <code>aria-labelledby</code> to associate card titles with their content</li>
+  </ul>
+
+  <h2>When to Use</h2>
+  <ul>
+    <li>Group related information and actions together</li>
+    <li>Create visual separation between different content sections</li>
+    <li>Display summaries or previews that link to detailed views</li>
+    <li>Build dashboards with modular, scannable content blocks</li>
+    <li>Present options or choices to users (e.g., pricing plans, product features)</li>
+  </ul>
+
+  <h2>When Not to Use</h2>
+  <ul>
+    <li>For simple text blocks: Use regular HTML elements instead</li>
+    <li>When content doesn't need visual separation: Avoid unnecessary boxing</li>
+    <li>For primary page navigation: Use navigation menus instead</li>
+    <li>In dense data tables: Cards add too much visual weight</li>
+    <li>For inline content within paragraphs: Use appropriate inline elements</li>
+  </ul>
+</main>
+
+</body>
+</html>

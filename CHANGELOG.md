@@ -11,6 +11,10 @@
 - Alert component documentation page with HTMX example
 - Checkbox and radio button styles with custom styling and accessibility support
 - HTMX button example with proper CORS config
+- Tabs component with underline style (default) and contained variant
+- Tabs JavaScript enhancement with keyboard navigation (Arrow keys, Home, End)
+- Tabs documentation page with HTMX lazy-loading example
+- ARIA-compliant tabs with full accessibility support (aria-selected, aria-controls, tabindex management)
 
 ### Changed
 - Form documentation consolidated: select, checkbox, and radio components now documented in form.html
@@ -27,8 +31,12 @@
 - Horizontal bleed on form inputs by adding `box-sizing: border-box`
 - Focus ring bleeding outside containers by removing offset
 - Text visibility issues with proper body color application
+- Vertical scrollbar on tab-list by adding `overflow-y: hidden`
+- Modal endpoint in mock server now returns proper modal HTML instead of card HTML
 
 ### Development
 - Added CLAUDE.md development guide
 - Updated mock server with CORS support
 - Mock server now supports GET /alert endpoint for alert component examples
+- Mock server now supports GET /tab-content endpoint for tabs lazy-loading examples
+- Mock server now supports GET /modal endpoint with proper modal HTML structure
