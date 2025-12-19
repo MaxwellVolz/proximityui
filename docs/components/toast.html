@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Toast – Proximity UI</title>
+  <meta name="htmx-config" content='{"selfRequestsOnly":false}'>
+  <link rel="stylesheet" href="../../proximity.css">
+  <script src="../../proximity.js"></script>
+  <script src="https://unpkg.com/htmx.org@2.0.4"></script>
+</head>
+<body>
+
+<main class="container">
+  <h1>Toast</h1>
+
+  <p>
+    Display brief, temporary notifications to users without interrupting their workflow. Toasts appear in the bottom-right corner and auto-dismiss after a few seconds.
+  </p>
+
+  <p>
+    <strong>Note:</strong> Toast notifications require proximity.js for dynamic creation and auto-dismiss functionality.
+  </p>
+
+  <h2>Variants</h2>
+
+  <p>Toast supports semantic color variants for different message types:</p>
+
+  <div style="display: flex; gap: var(--space-sm); flex-wrap: wrap; margin-bottom: var(--space-lg);">
+    <button class="btn" data-toast="This is an informational message" data-toast-type="info">Info Toast</button>
+    <button class="btn" data-toast="Operation completed successfully!" data-toast-type="success">Success Toast</button>
+    <button class="btn" data-toast="Please review the warnings before proceeding" data-toast-type="warning">Warning Toast</button>
+    <button class="btn" data-toast="An error occurred. Please try again." data-toast-type="error">Error Toast</button>
+    <button class="btn" data-toast="This is a default notification">Default Toast</button>
+  </div>
+
+  <h2>Data Attribute Trigger</h2>
+
+  <p>The simplest way to trigger toasts is using data attributes:</p>
+
+  <button
+    class="btn primary"
+    data-toast="Settings saved successfully!"
+    data-toast-type="success"
+    data-toast-duration="3000">
+    Save Settings
+  </button>
+
+  <pre style="background: var(--color-surface); padding: var(--space-lg); border-radius: var(--border-radius-md); overflow-x: auto; margin-top: var(--space-md);"><code>&lt;button
+  data-toast="Settings saved successfully!"
+  data-toast-type="success"
+  data-toast-duration="3000"&gt;
+  Save Settings
+&lt;/button&gt;</code></pre>
+
+  <h2>JavaScript API</h2>
+
+  <p>Programmatically show toasts using the JavaScript API:</p>
+
+  <button class="btn primary" onclick="ProximityUI.showToast('Welcome to Proximity UI!', 'info', 5000)">
+    Show Programmatic Toast
+  </button>
+
+  <pre style="background: var(--color-surface); padding: var(--space-lg); border-radius: var(--border-radius-md); overflow-x: auto; margin-top: var(--space-md);"><code>// Show a toast notification
+ProximityUI.showToast(message, type, duration);
+
+// Examples:
+ProximityUI.showToast('Hello!', 'info', 5000);
+ProximityUI.showToast('Saved!', 'success', 3000);
+ProximityUI.showToast('Warning!', 'warning', 5000);
+ProximityUI.showToast('Error!', 'error', 0); // No auto-dismiss
+
+// Parameters:
+// - message: String - The text to display
+// - type: String - 'info', 'success', 'warning', 'error' (default: 'info')
+// - duration: Number - Milliseconds before auto-dismiss (default: 5000, 0 = no auto-dismiss)</code></pre>
+
+  <h2>Auto-Dismiss Duration</h2>
+
+  <p>Control how long toasts stay visible:</p>
+
+  <div style="display: flex; gap: var(--space-sm); flex-wrap: wrap; margin-bottom: var(--space-lg);">
+    <button class="btn" data-toast="Quick message" data-toast-type="info" data-toast-duration="2000">2 seconds</button>
+    <button class="btn" data-toast="Standard message" data-toast-type="info" data-toast-duration="5000">5 seconds (default)</button>
+    <button class="btn" data-toast="Persistent message - click X to dismiss" data-toast-type="warning" data-toast-duration="0">No auto-dismiss</button>
+  </div>
+
+  <h2>Maximum Toasts</h2>
+
+  <p>A maximum of 5 toasts can be displayed simultaneously. When the limit is reached, the oldest toast is automatically dismissed.</p>
+
+  <button class="btn primary" onclick="
+    for(let i = 1; i <= 7; i++) {
+      setTimeout(() => ProximityUI.showToast('Toast #' + i, 'info', 10000), i * 200);
+    }
+  ">
+    Trigger 7 Toasts (max 5 shown)
+  </button>
+
+  <h2>HTMX Example</h2>
+
+  <p>
+    Server responses can trigger toasts using custom HTTP headers. This is useful for showing confirmation messages after form submissions or API calls.
+  </p>
+
+  <button
+    class="btn primary"
+    hx-get="http://localhost:8001/toast-trigger"
+    hx-target="#htmx-result"
+    hx-swap="innerHTML">
+    Trigger Server Toast
+  </button>
+
+  <div id="htmx-result" style="margin-top: var(--space-md); color: var(--color-muted);"></div>
+
+  <p style="margin-top: var(--space-lg);">
+    <strong>Server Implementation:</strong> Include these headers in your response:
+  </p>
+
+  <pre style="background: var(--color-surface); padding: var(--space-lg); border-radius: var(--border-radius-md); overflow-x: auto;"><code># Python (Flask/FastAPI)
+response.headers['X-Toast-Message'] = 'Operation completed successfully!'
+response.headers['X-Toast-Type'] = 'success'
+response.headers['X-Toast-Duration'] = '5000'  # optional, defaults to 5000
+
+# Node.js (Express)
+res.set('X-Toast-Message', 'Operation completed successfully!');
+res.set('X-Toast-Type', 'success');
+res.set('X-Toast-Duration', '5000');  // optional</code></pre>
+
+  <p style="margin-top: var(--space-lg);">
+    <strong>Note:</strong> The HTMX example requires the mock server to be running. Start it with: <code>python3 examples/htmx/server.py</code>
+  </p>
+
+  <h2>Accessibility</h2>
+
+  <ul>
+    <li><strong>ARIA Live Region:</strong> Toasts use <code>role="status"</code> and <code>aria-live="polite"</code> to announce messages to screen readers without interrupting.</li>
+    <li><strong>Close Button:</strong> All toasts include a close button with <code>aria-label="Close"</code> for manual dismissal.</li>
+    <li><strong>Keyboard Support:</strong> Close buttons are keyboard-accessible with visible focus indicators.</li>
+    <li><strong>Auto-Dismiss:</strong> Default 5-second timeout provides enough time to read the message.</li>
+    <li><strong>Non-Blocking:</strong> Toasts don't require user interaction and don't block the underlying content.</li>
+    <li><strong>Pointer Events:</strong> The toast container doesn't block clicks on page content behind it.</li>
+  </ul>
+
+  <h2>When to Use</h2>
+
+  <ul>
+    <li>Confirmation messages after successful actions (save, delete, submit)</li>
+    <li>Brief informational messages that don't require action</li>
+    <li>Non-critical error messages or warnings</li>
+    <li>Background task completion notifications</li>
+    <li>System status updates (connection lost, reconnected)</li>
+    <li>Undo/redo confirmations in collaborative apps</li>
+  </ul>
+
+  <h2>When Not to Use</h2>
+
+  <ul>
+    <li><strong>Critical errors:</strong> Use a modal or inline error message for errors that require user attention</li>
+    <li><strong>Long messages:</strong> Toasts are for brief messages; use alerts or modals for detailed information</li>
+    <li><strong>Required actions:</strong> If users must respond, use a modal dialog instead</li>
+    <li><strong>Persistent information:</strong> Use alerts or status indicators for information that should remain visible</li>
+    <li><strong>Complex content:</strong> Toasts should be plain text; use other components for rich content</li>
+    <li><strong>Multiple simultaneous messages:</strong> Avoid overwhelming users with too many toasts at once</li>
+  </ul>
+
+  <h2>Design Notes</h2>
+
+  <ul>
+    <li><strong>Position:</strong> Bottom-right corner, fixed positioning</li>
+    <li><strong>Stacking:</strong> New toasts appear at the bottom and push older ones up</li>
+    <li><strong>Maximum:</strong> 5 toasts maximum; oldest auto-dismisses when limit reached</li>
+    <li><strong>Animation:</strong> Slide in from right, fade out on dismiss</li>
+    <li><strong>Width:</strong> Minimum 300px, maximum 400px for readability</li>
+    <li><strong>Mobile:</strong> Toasts are responsive and work on all screen sizes</li>
+  </ul>
+
+  <p style="margin-top: var(--space-2xl); padding-top: var(--space-2xl); border-top: var(--border-width) solid var(--color-border);">
+    <a href="../index.html">← Back to Components</a>
+  </p>
+
+</main>
+
+</body>
+</html>

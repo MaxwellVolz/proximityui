@@ -288,3 +288,118 @@
   // Re-initialize for dynamically added content (HTMX support)
   document.addEventListener('htmx:afterSwap', initTabs);
 })();
+
+// Toast functionality
+(function() {
+  'use strict';
+
+  const MAX_TOASTS = 5;
+
+  // Create toast container if it doesn't exist
+  function getToastContainer() {
+    let container = document.querySelector('.toast-container');
+    if (!container) {
+      container = document.createElement('div');
+      container.className = 'toast-container';
+      document.body.appendChild(container);
+    }
+    return container;
+  }
+
+  // Show toast
+  function showToast(message, type = 'info', duration = 5000) {
+    const container = getToastContainer();
+
+    // Enforce max toasts limit
+    const existingToasts = Array.from(container.querySelectorAll('.toast:not(.dismissing)'));
+    if (existingToasts.length >= MAX_TOASTS) {
+      // Remove oldest toast immediately (first in DOM, bottom-most visually due to column-reverse)
+      const oldestToast = existingToasts[0];
+      if (oldestToast && oldestToast.parentNode) {
+        oldestToast.remove();
+      }
+    }
+
+    // Create toast element
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+    toast.setAttribute('role', 'status');
+    toast.setAttribute('aria-live', 'polite');
+
+    const content = document.createElement('div');
+    content.className = 'toast-content';
+    content.textContent = message;
+
+    const closeBtn = document.createElement('button');
+    closeBtn.type = 'button';
+    closeBtn.className = 'toast-close';
+    closeBtn.setAttribute('aria-label', 'Close');
+    closeBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      dismissToast(toast);
+    });
+
+    toast.appendChild(content);
+    toast.appendChild(closeBtn);
+
+    // Add to container
+    container.appendChild(toast);
+
+    // Auto-dismiss
+    if (duration > 0) {
+      setTimeout(() => dismissToast(toast), duration);
+    }
+
+    return toast;
+  }
+
+  // Dismiss toast
+  function dismissToast(toast) {
+    if (!toast || toast.classList.contains('dismissing')) return;
+
+    toast.classList.add('dismissing');
+
+    // Use setTimeout as primary mechanism (more reliable)
+    // Animation duration is 200ms (--transition-base)
+    setTimeout(() => {
+      if (toast.parentNode) {
+        toast.remove();
+
+        // Remove container if empty
+        const container = document.querySelector('.toast-container');
+        if (container && !container.querySelector('.toast')) {
+          container.remove();
+        }
+      }
+    }, 200);
+  }
+
+  // Expose API
+  window.ProximityUI = window.ProximityUI || {};
+  window.ProximityUI.showToast = showToast;
+
+  // Data attribute triggers
+  document.addEventListener('click', (e) => {
+    const trigger = e.target.closest('[data-toast]');
+    if (trigger) {
+      e.preventDefault();
+      const message = trigger.getAttribute('data-toast');
+      const type = trigger.getAttribute('data-toast-type') || 'info';
+      const duration = parseInt(trigger.getAttribute('data-toast-duration')) || 5000;
+      showToast(message, type, duration);
+    }
+  });
+
+  // HTMX support - show toast from response header
+  document.addEventListener('htmx:afterRequest', (e) => {
+    if (!e.detail.xhr) return;
+
+    const toastMessage = e.detail.xhr.getResponseHeader('X-Toast-Message');
+    if (toastMessage) {
+      const toastType = e.detail.xhr.getResponseHeader('X-Toast-Type') || 'info';
+      const toastDuration = parseInt(e.detail.xhr.getResponseHeader('X-Toast-Duration')) || 5000;
+      showToast(toastMessage, toastType, toastDuration);
+    }
+  });
+})();

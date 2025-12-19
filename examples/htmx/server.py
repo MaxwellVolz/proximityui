@@ -74,6 +74,16 @@ class Handler(BaseHTTPRequestHandler):
     <p>This pattern is useful for lazy-loading tab content that might be expensive to render upfront.</p>
 </div>'''
             self.wfile.write(content.encode())
+        elif self.path == "/toast-trigger":
+            self.send_response(200)
+            self.send_header("Content-Type", "text/html")
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.send_header("Access-Control-Expose-Headers", "X-Toast-Message, X-Toast-Type, X-Toast-Duration")
+            self.send_header("X-Toast-Message", "Operation completed successfully!")
+            self.send_header("X-Toast-Type", "success")
+            self.send_header("X-Toast-Duration", "5000")
+            self.end_headers()
+            self.wfile.write(b'<p style="color: var(--color-success);">&#10003; Server response received</p>')
         else:
             self.send_response(404)
             self.end_headers()

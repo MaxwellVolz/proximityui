@@ -29,7 +29,13 @@ python3 -m http.server
 python3 examples/htmx/server.py
 ```
 
-The mock server runs on port 8001 and provides endpoints for testing HTMX interactions.
+The mock server runs on port 8001 and provides endpoints for testing HTMX interactions:
+- `GET /alert` - Returns alert component HTML
+- `GET /card` - Returns card component HTML
+- `GET /modal` - Returns modal component HTML with `open` attribute
+- `GET /tab-content` - Returns tab panel content for lazy-loading
+- `GET /toast-trigger` - Returns content with X-Toast headers for toast notifications
+- `POST /save` - Returns success message for form examples
 
 ## Architecture and Design Principles
 
@@ -80,8 +86,11 @@ When adding JavaScript enhancements:
 Allowed JS features:
 - Focus trap for modals
 - Escape key handling
-- Auto-dismiss timers
+- Auto-dismiss timers (toasts, alerts)
 - Click-outside detection
+- Keyboard navigation for tabs (arrow keys, home/end)
+- Dynamic toast creation and dismissal
+- ARIA live region announcements
 
 ### Hard Constraints (Never Break)
 
@@ -100,7 +109,12 @@ Component documentation pages follow this pattern:
 <!doctype html>
 <html lang="en">
 <head>
+  <meta charset="utf-8">
+  <title>ComponentName – Proximity UI</title>
+  <meta name="htmx-config" content='{"selfRequestsOnly":false}'>
   <link rel="stylesheet" href="../../proximity.css">
+  <script src="../../proximity.js"></script> <!-- Only if JS needed -->
+  <script src="https://unpkg.com/htmx.org@2.0.4"></script>
 </head>
 <body>
   <main class="container">
@@ -108,13 +122,28 @@ Component documentation pages follow this pattern:
     <p>Brief description</p>
 
     <h2>Basic</h2>
-    <!-- Example -->
+    <!-- Simplest example -->
 
     <h2>Variants</h2>
-    <!-- Variants -->
+    <!-- Different visual styles -->
 
     <h2>HTMX Example</h2>
     <!-- Optional HTMX integration -->
+
+    <h2>HTML Structure</h2>
+    <!-- Code example showing markup -->
+
+    <h2>Keyboard Navigation</h2>
+    <!-- For interactive components -->
+
+    <h2>Accessibility</h2>
+    <!-- ARIA, keyboard, screen reader support -->
+
+    <h2>When to Use</h2>
+    <!-- Use cases -->
+
+    <h2>When Not to Use</h2>
+    <!-- Anti-patterns -->
   </main>
 </body>
 </html>
@@ -122,8 +151,9 @@ Component documentation pages follow this pattern:
 
 Each component should document:
 - When to use / when not to use
-- Accessibility considerations
+- Accessibility considerations (ARIA roles, keyboard navigation)
 - HTMX integration patterns (if applicable)
+- HTML structure with code examples
 
 ### Adding New Components
 
@@ -134,11 +164,25 @@ Each component should document:
 5. **Add HTMX examples** if relevant
 6. **Validate accessibility** (keyboard nav, screen readers, ARIA)
 
-Priority order (from zzz.md roadmap):
-- Core: Button, Form controls
-- Informational: Alert, Card
-- Interactive: Modal, Tabs (high risk - validate carefully)
-- Minor: Dropdown, Toast
+Component status:
+- ✅ Implemented: Button, Form controls, Alert, Card, Modal, Tabs, Toast
+- 🔲 Remaining: Dropdown
+
+Implementation notes for tabs:
+- Uses anchor links + `:target` pseudo-class for no-JS fallback
+- JavaScript enhances with keyboard navigation and ARIA management
+- Supports HTMX lazy-loading via `hx-get` on tabs
+- Includes underline (default) and contained variants
+- All panels except first should have `hidden` attribute initially
+
+Implementation notes for toast:
+- Positioned bottom-right, stacks bottom-to-top (column-reverse)
+- Maximum 5 simultaneous toasts, oldest auto-dismisses when limit reached
+- JavaScript creates container dynamically, removes when empty
+- Supports data attributes: `data-toast`, `data-toast-type`, `data-toast-duration`
+- Global API: `ProximityUI.showToast(message, type, duration)`
+- HTMX integration via response headers: `X-Toast-Message`, `X-Toast-Type`, `X-Toast-Duration`
+- Uses `role="status"` and `aria-live="polite"` for screen reader announcements
 
 ### Design Token Usage
 

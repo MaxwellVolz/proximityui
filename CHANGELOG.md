@@ -15,6 +15,11 @@
 - Tabs JavaScript enhancement with keyboard navigation (Arrow keys, Home, End)
 - Tabs documentation page with HTMX lazy-loading example
 - ARIA-compliant tabs with full accessibility support (aria-selected, aria-controls, tabindex management)
+- Toast/notification component with auto-dismiss and manual close
+- Toast variants (info, success, warning, error) with semantic colors
+- Toast JavaScript API: `ProximityUI.showToast(message, type, duration)`
+- Toast data attribute triggers and HTMX support via response headers
+- Maximum 5 simultaneous toasts with automatic oldest-first dismissal
 
 ### Changed
 - Form documentation consolidated: select, checkbox, and radio components now documented in form.html
@@ -33,6 +38,12 @@
 - Text visibility issues with proper body color application
 - Vertical scrollbar on tab-list by adding `overflow-y: hidden`
 - Modal endpoint in mock server now returns proper modal HTML instead of card HTML
+- Toast close button not dismissing toasts (added type="button", preventDefault, improved pointer-events)
+- Toast dismissal using setTimeout instead of unreliable animationend event
+- Toast max 5 limit not enforcing properly (immediate removal instead of animated dismissal)
+- Toast warning variant text color changed to foreground for better readability
+- HTMX toast integration using htmx:afterRequest event instead of htmx:afterSwap
+- Toast custom headers exposed via Access-Control-Expose-Headers for CORS compatibility
 
 ### Development
 - Added CLAUDE.md development guide
@@ -40,3 +51,4 @@
 - Mock server now supports GET /alert endpoint for alert component examples
 - Mock server now supports GET /tab-content endpoint for tabs lazy-loading examples
 - Mock server now supports GET /modal endpoint with proper modal HTML structure
+- Mock server now supports GET /toast-trigger endpoint with X-Toast headers for toast examples
