@@ -42,6 +42,12 @@ pipeline {
                 echo 'Deployment directory prepared with corrected paths'
                 sh 'ls -la deploy/'
                 sh 'ls -la deploy/components/'
+
+                // Verify CSS file was copied correctly
+                sh 'test -f deploy/proximity.css || (echo "ERROR: proximity.css not found in deploy/" && exit 1)'
+                sh 'test -f deploy/proximity.js || (echo "ERROR: proximity.js not found in deploy/" && exit 1)'
+                sh 'head -5 deploy/proximity.css'
+                echo 'Files verified'
             }
         }
 
